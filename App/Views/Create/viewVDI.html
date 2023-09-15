@@ -1,0 +1,353 @@
+{% extends 'base.html' %}
+
+{% block title %}View details of VM{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block body %}
+
+    <h3><span style="color: #00008B;"><u>View details of VM</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+ {% if current_user.admin=="U" %}
+    <form  method="post" action="/create/vmassigned" id="formCreate">
+
+   {% elseif current_user.admin=="A"  %}
+ <form  method="post" action="/create/statusVDIviewall" id="formCreate">
+
+    {% endif %}
+<input type='hidden' name='username' value='{{user.name}}'/>
+		 
+
+	
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Virtual machine details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">Virtual machine Username</label>
+            <input type="text "id="ICNo" readonly name="vmname"   autofocus  value="{{viewonly.vmname }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="VMIP">Virtual machine IP address</label>
+            <input id="VMIP" name="VMIP"  readonly autofocus  value="{{viewonly.VMIP }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="OperatingSys">Operating System</label>
+              
+			      <input id="OperatingSys" readonly name="OperatingSys"   autofocus  value="{{viewonly.OperatingSys }}" required class="form-control"/>
+   
+	   </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="category">Category of VM</label>
+              
+			      <input id="category" readonly name="category"   autofocus  value="{{viewonly.category }}" required class="form-control"/>
+   
+	   </div>
+		 
+		 </div>
+			
+		 
+		 </div>
+		 
+	</fieldset>	 	 
+		 
+		 
+		 
+	<fieldset>
+    <legend><span style="color: #00008B;"><i>Thin Client details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+             <label for="ThinClientSlNo">Thin client serial number</label>
+            <input type="text "id="ThinClientSlNo" readonly name="ThinClientSlNo"   autofocus  value="{{viewonly.ThinClientSlNo }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="ThinClientIP">Thin Client IP address</label>
+            <input id="ThinClientIP" name="ThinClientIP" readonly  autofocus  value="{{viewonly.ThinClientIP }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		   <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="ThinClientMACID">Thin client MAC address</label>
+            <input id="ThinClientMACID" name="ThinClientMACID" readonly  autofocus  value="{{viewonly.ThinClientMACID }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 </div>
+		 
+		 <div class="form-group row">
+ <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+             <label for="KBMSMONProvided">Accessories Provided(Keyboard/Monitor/Mouse)</label>
+              
+			      <input id="KBMSMONProvided" readonly name="KBMSMONProvided"   autofocus  value="{{viewonly.KBMSMONProvided }}" required class="form-control"/>
+   
+	   </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+            <label for="MonitorSlNo">Monitor serial number</label>
+            <input id="MonitorSlNo" name="MonitorSlNo" readonly  autofocus  value="{{viewonly.MonitorSlNo}}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		 
+		  <div class="form-group row">
+ <div class="col-xs-4">	 
+ 
+		 	<div class="form-group">
+            <label for="KeyboardSlNo"> Keyboard Serial No.</label>
+<input id="KeyboardSlNo" name="KeyboardSlNo" readonly  autofocus  value="{{viewonly.KeyboardSlNo}}" required class="form-control"/>
+       
+		
+		</div>
+	
+		
+		 
+		 </div>
+			
+		 		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="MouseSlNo">Mouse Serial No.</label>
+            <input id="MouseSlNo" name="MouseSlNo" readonly  autofocus  value="{{viewonly.MouseSlNo}}" required class="form-control"/>
+       
+			
+			   </div>
+		 
+		 </div>
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="ExistingMonitor">Existing Monitor Details</label>
+            <input id="ExistingMonitor"   name="ExistingMonitor"  value="{{viewonly.ExistingMonitor}}" autofocus disabled value="{{user.TCReturnDate }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		 
+		 
+		 
+		 
+		 
+		 
+	</fieldset>	 	 
+		 
+		 
+		 
+		 
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>User details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+             <label for="AssignedPersonName">Assigned Person Name</label>
+            <input type="text "id="AssignedPersonName" name="AssignedPersonName"   autofocus  disabled value="{{viewonly.AssignedPersonName }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-6">	 
+		 
+		  <div class="form-group">
+            <label for="EMail">Mail ID</label>
+            <input id="EMail" type ="email" name="EMail"   autofocus  value="{{viewonly.EMail }}" disabled class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		 
+		 
+		 <div class="form-group row">
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">IC No</label>
+            <input  type ="number" id="ICNo" name="ICNo"   autofocus  value="{{viewonly.ICNo }}" disabled class="form-control"/>
+        </div>
+		 
+		 </div>
+ <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ContactNo">Phone number</label>
+            <input type ="number" id="ContactNo" name="ContactNo"   autofocus  value="{{viewonly.ContactNo }}" disabled class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		
+		 
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="section">Section</label>
+            <input id="section" name="section"   autofocus  value="{{viewonly.section }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="division">Division</label>
+            <input id="division" name="division"   autofocus  value="{{viewonly.division }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="grp">Group</label>
+            <input id="grp" name="grp"   autofocus  value="{{viewonly.grp }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="CoordID">CoordID</label>
+            <input type ="number" id="CoordID" name="CoordID"   autofocus  value="{{viewonly.CoordID }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 </div>
+		 
+	</fieldset>	 	 
+		 		 
+		 	 
+		 
+		 		
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Installation Details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+             <label for="installedby">Installed By</label>
+            <input type="text" id="installedby" name="InstalledBy"  disabled autofocus  value="{{viewonly.InstalledBy }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="AssignedDate">Installed Date</label>
+            <input  id="AssignedDate" name="AssignedDate"   autofocus  value="{{viewonly.AssignedDate }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="InstallationType">Installation Type</label>
+            <input type="text" id="InstallationType" name="InstallationType"  disabled autofocus  value="{{viewonly.InstallationType }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="oldpcstatus">OLD P4 PC  Status </label>
+            <input   type="text" id="oldpcstatus" name="oldpcstatus" disabled  autofocus  value="{{viewonly.oldpcstatus }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+
+		 </div>
+		 	 
+		  
+		<div class="form-group">
+            <label for="Remarks">Remarks</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <textarea rows="4" cols="50" id="Remarks" name="Remarks"  placeholder="{{ viewonly.Remarks}}" autofocus disabled    class="form-control">
+</textarea> 
+		</div>
+	
+			
+		 
+		 </fieldset>
+		 
+		  
+		 <input type='hidden' name='remarks' value='{{editt.remarks}}'/>
+       
+		  
+
+        <button type="submit" class="btn btn-default">Back</button>
+
+    </form>
+<br>
+{% endblock %}

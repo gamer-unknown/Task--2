@@ -1,0 +1,429 @@
+{% extends 'base.html' %}
+
+{% block title %}Details of TC to be returned{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block body %}
+
+    <h3><span style="color: #00008B;"><u>Details of TC to be returned</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form  method="post" action="/create/returnVDI" id="formCreate">
+
+        
+<input type='hidden' name='username' value='{{current_user.name}}'/>
+		 
+
+	<input type='hidden' name='SlNo' value='{{vmedit.SlNo}}'/>
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Virtual machine details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">Virtual machine Username</label>
+            <input type="text "id="ICNo" name="vmname"   autofocus  value="{{vmedit.vmname }}" readonly class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="VMIP">Virtual machine IP address</label>
+            <input id="VMIP" name="VMIP"   autofocus  value="{{vmedit.VMIP }}" readonly required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="OperatingSys">Operating System</label>
+      <!--         <select id="OperatingSys" required name="OperatingSys" readonly placeholder="vmedit.OperatingSys">
+   
+  <option value="Windows">Windows</option>
+  <option value="CentOS">CentOS</option>
+  <option value="Ubuntu">Ubuntu</option>
+ </select>
+  -->
+ <input id="OperatingSys" name="OperatingSys"   autofocus  value="{{vmedit.OperatingSys }}" readonly required class="form-control"/>
+	   </div>
+		 </div>
+		 
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="category">Category of VM</label>
+      <!--         <select id="category" required name="category" readonly placeholder="vmedit.category">
+   
+  <option value="Windows">Windows</option>
+  <option value="CentOS">CentOS</option>
+  <option value="Ubuntu">Ubuntu</option>
+ </select>
+  -->
+ 
+ <input id="category" name="category"   autofocus  value="{{vmedit.category }}" readonly required class="form-control"/>
+
+	   </div>
+		 </div> 
+		 
+		 
+		 
+		 
+		  </div>
+	</fieldset>	 	 
+		 
+		 
+		 
+	<fieldset>
+    <legend><span style="color: #00008B;"><i>Thin Client details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+             <label for="ThinClientSlNo">Thin client serial number</label>
+            <input type="text "id="ThinClientSlNo" name="ThinClientSlNo"   readonly autofocus  value="{{vmedit.ThinClientSlNo }}"   class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="ThinClientIP">Thin Client IP address</label>
+            <input id="ThinClientIP" name="ThinClientIP"   autofocus  readonly value="{{vmedit.ThinClientIP }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+             <label for="ThinClientMACID">Thin client MAC address</label>
+            <input type="text "id="ThinClientMACID" name="ThinClientMACID" readonly  autofocus  value="{{vmedit.ThinClientMACID }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 </div>
+		 
+		 <div class="form-group row">
+ <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+             <label for="KBMSMONProvided">Accessories Provided(Keyboard/Monitor/Mouse)</label>
+        <!--       <select id="KBMSMONProvided" required name="KBMSMONProvided" readonly placeholder="{{vmedit.ThinClientIP }}">
+  <option value="NO">NO</option>
+  <option value="KB/MS">Keyboard and Mouse</option>
+  <option value="KB/MS/MON">Keyboard,Mouse and Monitor</option>
+ </select> -->
+ <input id="KBMSMONProvided" name="KBMSMONProvided"   autofocus  value="{{vmedit.KBMSMONProvided }}" readonly required class="form-control"/>
+
+  
+	   </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+            <label for="MonitorSlNo">Monitor serial number</label>
+            <input id="MonitorSlNo" name="MonitorSlNo"   autofocus  readonly value="{{vmedit.MonitorSlNo}}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		  <div class="form-group row">
+ <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+             <label for="KeyboardSlNo">Keyboard Serial No.</label>
+            <input type="text "id="KeyboardSlNo" name="KeyboardSlNo"  readonly  autofocus  value="{{vmedit.KeyboardSlNo }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="MouseSlNo">Mouse Serial No.</label>
+            <input id="MouseSlNo" name="MouseSlNo"   autofocus  value="{{vmedit.MouseSlNo }}"  readonly class="form-control"/>
+        </div>
+		 
+		 </div>
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="ExistingMonitor">Existing Monitor Details</label>
+            <input id="ExistingMonitor" name="ExistingMonitor"   autofocus  value="{{vmedit.ExistingMonitor }}" readonly  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		   <!-- <div class="form-group row">
+ <div class="col-xs-4">	 
+ 
+		 	<div class="form-group">
+            <label for="TCStatus"> Thin Client Status</label>
+
+		<select id="TCStatus" name="TCStatus" placeholder="Select TC status" required>
+  <option value="NewlyAssigned">TC Newly Assigned</option>
+  <option value="Returned">TC Returned</option>
+  <option value="Reassigned">TC Reassigned</option>
+  <option value="Faulty">TC Faulty</option>
+  
+</select>
+		</div>
+	
+		
+		 
+		 </div>
+			
+		 		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="TCReturnStatus">TC Deployment Status</label>
+            <select id="TCReturnStatus" name="TCReturnStatus" placeholder="Select TC Deployment status" required>
+  <option value="Temporary">TC Temporary Assigned</option>
+  <option value="Permanent">TC Permanently Assigned</option>
+   
+</select>   </div>
+		 
+		 </div>
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            <label for="TCReturnDate">TC Return Date</label>
+            <input id="TCReturnDate" type="date" name="TCReturnDate"   autofocus  value="{{user.TCReturnDate }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div> -->
+		 
+	</fieldset>	 	 
+		 
+		 
+		 
+		 
+	
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>User details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-6">	 
+		 
+		 <div class="form-group">
+             <label for="AssignedPersonName">Assigned Person Name</label>
+            <input type="text "id="AssignedPersonName" name="AssignedPersonName"  readonly autofocus  value="{{vmedit.AssignedPersonName }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-6">	 
+		 
+		  <div class="form-group">
+            <label for="EMail">Mail ID</label>
+            <input id="EMail" type ="email" name="EMail"   autofocus  value="{{vmedit.EMail }}" readonly class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		 </div>
+		 
+		 
+		 <div class="form-group row">
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">IC No</label>
+            <input  type ="number" id="ICNo" name="ICNo" readonly  autofocus  value="{{vmedit.ICNo }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+ <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="ContactNo">Phone number</label>
+            <input type ="number" id="ContactNo" name="ContactNo" readonly  autofocus  value="{{vmedit.ContactNo }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		
+		 
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="section">Section</label>
+            <input id="section" name="section" readonly  autofocus  value="{{vmedit.section }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="division">Division</label>
+            <input id="division" name="division"  readonly autofocus  value="{{vmedit.division }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="grp">Group</label>
+            <input id="grp" name="grp"   autofocus readonly value="{{vmedit.grp }}" required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="CoordID">CoordID</label>
+            <input type ="number" id="CoordID" name="CoordID"   readonly autofocus  value="{{vmedit.CoordID }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 </div>
+		 
+	</fieldset>	 	 
+		 		 
+				 		 
+		 
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Installation Details</i></legend>
+	<div class="form-group row">
+ <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+             <label for="installedby">Installed By</label>
+            <input type="text" id="installedby" name="InstalledBy"  readonly autofocus  value="{{vmedit.InstalledBy }}"  disabled class="form-control"/>
+        </div>
+		 
+		 </div>
+			
+		 
+		
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="installdate">Installed Date</label>
+            <input type="date" id="installdate" name="AssignedDate" readonly  autofocus  value="{{vmedit.AssignedDate }}" disabled required class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+		 
+		  <div class="col-xs-3">	 
+		 		 <div class="form-group">
+            <label for="InstallationType">Installation Type</label>
+			<select id="InstallationType" name="InstallationType" placeholder="Select Installation Type" required>
+  
+  <option value="Returned">TC Returned</option>
+   
+  
+</select>
+			 
+          <!--   <input type="text" id="InstallationType" name="InstallationType"   autofocus  value="{{user.InstallationType }}" required class="form-control"/>
+        --> </div>
+		<!--  <div class="form-group">
+            <label for="InstallationType">Installation Type</label>
+			 
+			 
+            <input type="text" id="InstallationType" name="InstallationType"   autofocus  value="Returned" required disabled class="form-control"/>
+         </div> -->
+		 
+		 </div>
+		 
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            <label for="oldpcstatus">OLD P4 PC  Status </label>
+            <input   type="text" id="oldpcstatus" name="oldpcstatus" readonly  autofocus  value="{{vmedit.oldpcstatus }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 
+
+		 </div>
+		 	 
+		  
+		<div class="form-group">
+            <label for="Remarks">Remarks</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <textarea rows="4" cols="50" id="Remarks" name="Remarks"  placeholder="{{ vmedit.Remarks}}" autofocus  required   class="form-control">
+</textarea> 
+		</div>
+	
+			
+		 
+		 </fieldset> 
+		<!--  {% if current_user.admin=="U"%}
+		  
+		<div class="form-group">
+            <label for="Remarks">Reason for Updation</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <!-- <textarea rows="4" cols="50" id="Remarks" required name="Remarks"  autofocus     class="form-control">
+</textarea> 
+		</div>
+	
+			
+		 {% else %}
+		   
+		<div class="form-group">
+            <label for="Remarks">Remarks</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <!-- <textarea rows="4" cols="50" id="Remarks" required name="Remarks"  placeholder="{{ vmedit.Remarks}}" autofocus     class="form-control">
+</textarea> 
+		</div>
+	
+		 
+		 	 {% endif %}  -->  
+		 <input type='hidden' name='remarks' value='{{vmedit.Remarks}}'/>
+       
+		  
+
+        <button type="submit" class="btn btn-default">Return ThinClient</button>
+
+    </form>
+<br>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+ 
+{% block title %}View Thin Client status{% endblock %}
+
+
+{% block body %}
+
+
+
+
+{% if flag==1 %}
+    <h3>View Thin Client status  <span class="badge">{{count}}</span></h3>
+	{% elseif flag==2 %}
+ 	<h3>View Newly Assigned TC's  <span class="badge">{{count1}}</span></h3>
+	{% elseif flag==3 %}
+ 	<h3>View Returned TC's  <span class="badge">{{count2}}</span></h3>
+	 
+	{% elseif flag==4 %}
+ 	<h3>View  Reassigned Tc's  <span class="badge">{{count3}}</span></h3>
+	{% elseif flag==5 %}
+ 	<h3><u>View Returned and Reallocated TC's  <span class="badge">{{count}}</span></u></h3>
+	{% endif %}
+	
+	
+	<div class="container">
+	  <a href="/create/statusviewTC" class="btn btn-primary" role="button">All Categories <span class="badge">{{count}}</span></a>
+  
+	
+    <a href="/create/statusviewnewTC" class="btn btn-success" role="button">Newly Assigned TC's <span class="badge">{{count1}}</span></a>
+  
+    <a href="/create/statusviewreassigned" class="btn btn-info" role="button">Reassigned TC's <span class="badge">{{count3}}</span></a>
+  
+    <a href="/create/statusviewreturned" class="btn btn-warning" role="button">Returned TC's<span class="badge">{{count2}}</span></a>
+    <a href="/create/statusviewRetReass" class="btn btn-danger" role="button">Returned and Reallocated TC's <span class="badge">{{count4}}</span></a>
+ <a href="/create/statusviewfaulty" class="btn btn-danger" role="button">Faulty TC's <span class="badge">{{count5}}</span></a>
+
+
+  
+  
+  </div>
+ <br></br>
+	<div class="container">
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br></br>
+		
+	<div id="printableTable">	
+		<table id="t01"  >
+		{% set i=0 %}
+	<thead>	
+		
+		
+  <tr>
+  
+  <th onclick="sortTable(0)">Sl. No</th>
+    <th onclick="sortTable(1)">VM Username</th>
+    <th onclick="sortTable(2)">VM IP</th> 
+	
+	<th onclick="sortTable(3)">Installation Type</th>
+
+    <th onclick="sortTable(4)">Thin CLient Sl No</th>
+ <th onclick="sortTable(5)">Operating System</th>
+	<th onclick="sortTable(6)">Assigned To</th>
+	<th onclick="sortTable(7)">Assigned Date</th>
+  </tr>
+</thead>
+   {% for tsk in tasks %}
+  
+  
+  {% set i=i+1 %}
+<tbody id="myTable"  >
+  
+  <tr> 
+ 
+  
+   
+    
+	<td class="bg-success">{{i}}</td>
+     <td class="bg-success">{{tsk.vmname}}</td>
+    <td class="bg-success">{{tsk.VMIP}}</td>
+
+	<td class="bg-success">{{tsk.InstallationType}}</td>
+	
+    <td class="bg-success">{{tsk.ThinClientSlNo}}</td>
+	<td class="bg-success">{{tsk.OperatingSys}}</td>
+	<td class="bg-success">{{tsk.AssignedPersonName}}</td>
+	<td class="bg-success">{{tsk.AssignedDate}}</td>
+	<td>
+	
+	 <form method="post" action="/create/VDIviewonly" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' class="btn btn-primary" name='submit-btn' data-toggle="tooltip" title="Click to view details" value='View' " />
+	 </form> 
+		  
+	</td>	
+	
+		  
+	
+	<!-- 
+	
+	 <td>
+	 <form method="post" action="/create/VDIeditview" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='Edit' class="btn btn-default" />
+	 </form> 
+		 </td> 
+		 
+		   -->
+	
+	 <td>
+	 <form method="post" action="/create/VDIeditview" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 {% if (tsk.InstallationType=="Returned") or (tsk.InstallationType=="Returned and Reallocated") or (tsk.InstallationType=="Faulty") %}
+	 <input type='submit' name='submit-btn' value='Edit' disabled class="btn btn-default" />
+	  {% elseif (tsk.InstallationType!="Returned") %}
+	  <input type='submit' name='submit-btn' class="btn btn-info" data-toggle="tooltip" title="Click to edit" value='Edit'  />
+	  {%endif%}
+	 </form> 
+		 </td>   
+	
+	
+	 <td>
+	 <form method="post" action="/create/VDIreturnview" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 {% if (tsk.InstallationType=="Returned") %}
+	 <input type='submit' name='submit-btn' class="btn btn-warning" data-toggle="tooltip" title="TCs that are returned will be Reallocated" value='Reassign TC'  />
+	 {% elseif (tsk.InstallationType=="Returned and Reallocated") or (tsk.InstallationType=="Faulty")%}
+	  <input type='submit' name='submit-btn' disabled value='Reassign TC' class="btn btn-default" />
+	 {% else %}
+	 <input type='submit' name='submit-btn' class="btn btn-success" value='Return TC'  data-toggle="tooltip" title="Click to return TC"  />
+	  <input type='submit' name='submit-btn' class="btn btn-danger" value='Replace Faulty TC' data-toggle="tooltip" title="Currently assigned TC will be marked as faulty and a new TC will be assigned"  />
+	 {%endif%}
+	 </form> 
+		 </td>   
+	
+	
+	
+	
+  </tr>
+  </tbody>
+  {% endfor %}
+  
+  
+  
+ </table>
+    </div>  
+   
+   
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+ 
+ <br><br>
+      <!--  <button  type="button" class="printPageButton"  onClick="window.print();" >Print</button> 
+ -->
+     <button  type="button"   onClick="printDiv()" ><span class="glyphicon glyphicon-print"></span>Print</button> 
+
+</div>  
+
+{% endblock %}

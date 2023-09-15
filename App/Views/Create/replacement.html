@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+ 
+{% block title %} Hardware Replacement details{% endblock %}
+
+
+{% block body %}
+
+<br></br>
+<form method="post" action="/create/addreplacement" id="formEdit">
+	 <input type='submit' name='submit-btn' value='Add Hardware Replacement Details' class="btn btn-info" />
+	 </form>
+
+
+    <h3><u>Hardware Replacement details </u></h3>
+	
+	
+	
+	<br></br>
+	
+	 
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br></br>
+		
+	<div id="printableTable">	
+		<table id="t01"  >
+		{% set i=0 %}
+	<thead>	
+		
+		
+  <tr>
+  
+   
+	
+	<th  onclick="sortTable(0)">Sl. No</th>
+	 <th  onclick="sortTable(1)">UserName</th>
+	  <th  onclick="sortTable(2)">Group</th>
+	   <th ronclick="sortTable(3)">Replaced Date</th>
+    <th onclick="sortTable(4)">Mouse</th>
+    <th  onclick="sortTable(5)">Keyboard</th>
+    <th  onclick="sortTable(6)">Adaptor</th>
+	
+  </tr>
+  <!-- <tr>
+    <th>IN</th>
+    <th>OUT</th>
+    <th>Total</th>
+    <th>IN</th>
+    <th>OUT</th>
+    <th>Total</th>
+    <th>IN</th>
+    <th>OUT</th>
+    <th>Total</th>
+  </tr> -->
+</thead>
+   {% for tsk in tasks %}
+  
+  
+  {% set i=i+1 %}
+<tbody id="myTable"  >
+  
+  <tr> 
+ 
+  {% if tsk.mouseout == 1 or tsk.keyboadout==1 or tsk.adapterout==1 %}
+  
+  
+   
+    
+	<td class="bg-success">{{i}}</td>
+     <td class="bg-success">{{tsk.username}}</td>
+    <td class="bg-success">{{tsk.grp}}</td>
+  <td class="bg-success">{{tsk.stockdate}}</td>
+    
+  
+  
+  
+  
+    <td class="bg-success">
+	{% if tsk.mouseout == 1 %}
+        <strong>&#10003;</strong>
+		{% else %}
+		 <strong>&#10007;</strong>
+        {% endif %}
+		</td>
+
+    <td class="bg-success">{% if tsk.keyboadout == 1 %}
+         <strong>&#10003;</strong>
+		{% else %}
+			 <strong>&#10007;</strong>
+        {% endif %}</td>
+  
+    <td class="bg-success">{% if tsk.adapterout == 1 %}
+       <strong>&#10003;</strong>
+		{% else %}
+			 <strong>&#10007;</strong>
+        {% endif %}</td>
+  
+	
+	<td>
+	
+	 <form method="post" action="/create/viewreplacement" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='View' class="btn btn-primary" />
+	 </form> 
+		  
+	</td>	 
+	
+	{% endif %}	  
+	
+	
+	<!-- 
+	 <td>
+	 <form method="post" action="/create/helpedit" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='Edit' class="btn btn-default" />
+	 </form> 
+		 </td>    -->
+	
+	
+	
+	
+	
+  </tr>
+  </tbody>
+  {% endfor %}
+  
+  
+  
+ </table>
+    </div>  
+   
+   
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
+ <br><br>
+      <!--  <button  type="button" class="printPageButton"  onClick="window.print();" >Print</button> 
+ -->
+     <button  type="button"   onClick="printDiv()" ><span class="glyphicon glyphicon-print"></span>Print</button> 
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

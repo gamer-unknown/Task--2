@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %} Retrieved details {% endblock %}
+
+{% block body %}
+<style>
+    .user-info p {
+        font-size: 18px;
+        /* Adjust the font size as needed */
+    }
+
+    .header {
+        text-align: center;
+        border-top: 1px solid #000;
+        /* Add a top border */
+        border-bottom: 1px solid #000;
+        /* Add a bottom border */
+        margin: 10px 0;
+        /* Add some margin for spacing */
+    }
+</style>
+
+<div id='printdiv'>
+    <table  id ='mtab' align='center' cellpadding='10' cellspacing='0' width='100%'>
+        <tr align='right'> <td style='border:0;' colspan='4'>  Sl.No :{{searchgrp0}}  </td> </tr>
+        <tr align='center'>
+            <td style='border:0;text-align:center' align='center' colspan='4' >
+                <span> <b> Indira Gandhi Centre for Atomic Research <br>
+                        Electronics Instrumentation Group <br>
+                        Computing Systems Section / Computer Division <br>
+                        Thin Client Form <br> </span> <hr>
+            </td>
+        </tr>
+        <tr>
+            <td style='border:0;' height='12px'> Name : </td>
+            <td style='border:0;'>{{searchgrp1}}</td>
+            <td style='border:0;'> IC No. : </td>
+            <td style='border:0;'>{{searchgrp2}}</td>
+        </tr>
+        <tr>
+            <td style='border:0;' height='12px'> Designation : </td>
+            <td style='border:0;'>{{searchgrp3}}</td>
+            <td style='border:0;'>Unit/Group/Sub<br>Group/Div/Sec :</td>
+            <td style='border:0;'>{{searchgrp8}}</td>
+        </tr>
+        <tr>
+            <td style='border:0;' height='12px'> Phone Number : </td>
+            <td style='border:0;'>{{searchgrp13}}</td>
+            <td style='border:0;'> E-mail : </td>
+            <td style='border:0;'>{{searchgrp14}}</td>
+        </tr>
+        <tr>
+            <td style='border:0;'  height='20px'> IP :</td>
+            <td style='border:0;'>{{searchgrp12}}</td>
+            <td style='border:0;'>User Category :</td>
+            <td style='border:0;'>{{searchgrp10}}</td>
+        </tr>
+        <tr>
+            <td style='border:0;'  height='20px'>Replacement/New PC :</td>
+            <td style='border:0;'>{{searchgrp11}}</td>
+            <td style='border:0;'>Old PC details :</td>
+            <td style='border:0;'>{{searchgrp16}}</td>
+        </tr>
+        <table  width='100%' >
+
+            <tr> <td style='border:0;' height='20px' colspan='4'> <hr> </td> </tr>
+
+            <tr> <td style='border:0;' colspan='4' height='50px'> Through : Head of Division  </td> </tr>
+            <tr> <td style='border:0;' height='10px' colspan='2' >Date : <span id="currentDate"></span></td> <td style='border:0;' align='right'> Signature of Applicant </td> </tr>
+            <tr> <td style='border:0;' height='30px' colspan='4'>   <hr> </td> </tr>
+            <tr> <td style='border:0;' height='20px' colspan='4' align='left' >To: Head, Computer Division</td> </tr>
+            <tr> <td style='border:0;' height='20px' colspan='4' align='left' ><hr> </td> </tr>
+        </table>
+        <script>
+            function formatDate(date) {
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const year = date.getFullYear();
+                return month + '/' + day + '/' + year;
+            }
+            const currentDateElement = document.getElementById('currentDate');
+            const currentDate = new Date();
+            currentDateElement.textContent = formatDate(currentDate);
+        </script>
+    </table>
+</div>
+
+<form method='post'>
+    <table align='center' cellpadding='0' cellspacing='0' width='100%' style="border:0;"> 
+             
+     <tr valign ='top'>
+        <td style='border:0;text-align:center' height='15' colspan='4' >
+            <input  type='button' value='Print' onclick='printPage()' />
+        </td>
+     </tr>
+    </table>
+</form>
+
+<script>
+    function printPage() {
+        var printWindow = window.open('', '', 'width=600,height=600');
+        printWindow.document.open();
+        printWindow.document.write('<html><head><title>Print</title></head><body>');
+        
+        // Include the content of the 'printdiv'
+        var printDivContent = document.getElementById('printdiv').innerHTML;
+        printWindow.document.write(printDivContent);
+        
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+        printWindow.close();
+    }
+</script>
+
+{% endblock %}

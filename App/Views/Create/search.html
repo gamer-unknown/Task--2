@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Task {% endblock %}
+
+{% block body %}
+
+<h4><br>Select search criteria</h4>
+
+ <form method="post" action="/create/searchspecific" id="formCreate"  >
+ 
+ <div class="form-group row">
+		<!-- <div class="form-group"> -->
+		
+		<div class="col-xs-2">
+		
+           <input onChange='this.form.submit();' type="radio"   name="searchtype" value="assigned_by"  > Assigned By<br>
+ </div>
+ <div class="col-xs-2">
+ <input onChange='this.form.submit();' type="radio" name="searchtype" value="assigned_to"> Assigned To<br>
+  
+  </div>
+  <div class="col-xs-2">
+  <input onChange='this.form.submit();' type="radio" name="searchtype" value="description"> Description 
+
+	   </div>
+	   </div>
+    </form>
+	
+	 
+{% endblock %}

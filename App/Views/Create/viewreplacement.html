@@ -1,0 +1,246 @@
+{% extends 'base.html' %}
+ 
+{% block title %} View accessories replacement details{% endblock %}
+
+
+{% block body %}
+<h3><span style="color: #00008B;"><u>View accessories replacement details</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<br></br>
+<form method="post" action="/create/replacement" id="formEdit">
+	 
+   
+   
+  
+<input type='hidden' name='username' value='{{user.name}}'/>
+
+
+		 
+		 
+		      
+ 
+	 
+	 			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>User Details</i></legend>
+		  
+			 
+		 		 <div class="form-group row">
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">Assigned User</label>
+            <input  type ="text" id="ICNo" name="ICNo"   readonly autofocus  value="{{viewonly.username }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="vmname">VM username</label>
+            <input  type ="text" id="vmname" name="vmname"   readonly autofocus  value="{{viewonly.vmname }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="sec">Section</label>
+            <input  type ="text" id="sec" name="sec"   autofocus readonly value="{{viewonly.sec }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="divn">Division</label>
+            <input  type ="text" id="divn" name="divn"   autofocus readonly value="{{viewonly.divn }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="grp">Group</label>
+            <input  type ="text" id="grp" name="grp"   autofocus readonly value="{{viewonly.grp }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		  <div class="col-xs-2">	 
+		 <div class="form-group">
+            <label for="stockdate">Installed Date</label>
+            <input type="date" id="stockdate" name="stockdate"  readonly autofocus  value="{{viewonly.stockdate }}" required class="form-control"/>
+        </div>
+		 
+		  
+		 </div>
+		 </div>
+		 
+		 
+		</fieldset> 
+		 
+		 	 			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Accessories Replacement/Addition  Details</i></legend>
+		 
+    <div class="form-group row">
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            
+	 <label>
+  <input type="radio" name="mouseout"   value="1">
+  Mouse Replaced
+  
+  
+</label><br></br>
+<label>
+  <input type="radio" name="mouseout" value="0" >
+  Mouse Added
+</label>
+
+<div id="myTextbox1" style="display: none;">
+  <label for="mousein">No of mouse added</label>
+  <input type="number" id="mousein" name="mousein"   value={{user.mousein}}>
+</div>
+
+
+
+	  </div>
+		 
+		 </div>
+		 
+		 
+	  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            
+	 <label>
+  <input type="radio" name="keyboadout"   value="1">
+  Keyboard Replaced
+  
+  
+</label><br></br>
+<label>
+  <input type="radio" name="keyboadout" value="0" >
+  Keyboard Added
+</label>
+<div id="myTextbox2" style="display: none;">
+  <label for="keyboadin">No of keyboards added</label>
+  <input type="number" id="keyboadin" name="keyboadin"   value={{user.keyboadin}}>
+</div>
+
+
+
+	  </div>
+		 
+		 
+		</div>  
+		
+		
+		  <div class="col-xs-3">	 
+		 
+		 <div class="form-group">
+            
+	 <label>
+  <input type="radio" name="adapterout"   value="1"   >
+  Adapter Replaced
+  
+  
+</label><br></br>
+<label>
+  <input type="radio"   name="adapterout" value="0">
+  Adapter Added
+</label>
+<div id="myTextbox3" style="display: none;">
+  <label for="adapterin">No of adapters added</label>
+  <input type="number" id="adapterin" name="adapterin"   value={{user.adapterin}}>
+</div>
+
+
+
+	  </div>
+		 
+		 
+		</div> 
+		
+	  	
+		</div> 
+		 
+		 
+	 
+		
+		
+		<div class="form-group">
+            <label for="Remarks">Remarks</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <textarea rows="4" cols="50" id="Remarks" name="remarks" readonly placeholder="{{ viewonly.remarks}}" required autofocus     class="form-control">
+</textarea> 
+		</div>	
+		
+		
+		
+	
+		
+	
+  	
+  
+ 
+ <script>
+  var radioButtons1 = document.getElementsByName('mouseout');
+  var myTextbox1 = document.getElementById('myTextbox1');
+  var radioButtons2 = document.getElementsByName('keyboadout');
+  var myTextbox2 = document.getElementById('myTextbox2');
+  var radioButtons3 = document.getElementsByName('adapterout');
+  var myTextbox3 = document.getElementById('myTextbox3');
+  
+  
+  
+  for (var i = 0; i < radioButtons1.length; i++) {
+    radioButtons1[i].addEventListener('change', function() {
+      if (this.value === '0') {
+        myTextbox1.style.display = 'block';
+      } else {
+        myTextbox1.style.display = 'none';
+      }
+    });
+  }
+  
+  for (var i = 0; i < radioButtons2.length; i++) {
+    radioButtons2[i].addEventListener('change', function() {
+      if (this.value === '0') {
+        myTextbox2.style.display = 'block';
+      } else {
+        myTextbox2.style.display = 'none';
+      }
+    });
+  }
+  
+  for (var i = 0; i < radioButtons3.length; i++) {
+    radioButtons3[i].addEventListener('change', function() {
+      if (this.value === '0') {
+        myTextbox3.style.display = 'block';
+      } else {
+        myTextbox3.style.display = 'none';
+      }
+    });
+  }
+</script>
+   
+     <button type="submit" class="btn btn-default">Back</button>
+   </form>
+   
+ 
+
+
+{% endblock %}

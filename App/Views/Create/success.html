@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Success{% endblock %}
+
+{% block body %}
+
+ 
+ 
+ {% if flag==1%}
+ <h4>VM  details added successfully </h4>
+ 
+ {% endif %}
+   
+ {% if flag==2%}
+ <h4>Complaint registered successfully. Please check the status in Complaint status tab</h3>
+ 
+ {% endif %}
+ {% if flag==3%}
+ <h4>VM details edited successfully </h4>
+ 
+ {% endif %}
+ {% if flag==4%}
+ <h4>Help details added successfully </h4>
+ 
+ {% endif %}
+ 
+ {% if flag==5%}
+ <h4>Help details edited successfully </h4>
+ 
+ {% endif %}
+ {% if flag==6%}
+ <h4>New User added successfully </h4>
+ {% endif %}
+ {% if flag==7%}
+ <h4>Log File proccessed successfully </h4>
+ 
+ {% endif %}
+{% endblock %}

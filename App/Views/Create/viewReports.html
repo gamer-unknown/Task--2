@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+ 
+{% block title %}Reports{% endblock %}
+
+
+{% block body %}
+
+ <br></br>
+<form method="post" action="/create/addhelp" id="formEdit">
+	 
+	 
+
+		 <div class="form-group row">
+ <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="Group">Select the Group</label>
+              <select id="Group" required name="Group" placeholder="Select">
+			  
+			  
+			  
+  <option value="All">All</option>
+  <option value="EIG">EIG</option>
+  <option value="RDTG">RDTG</option>
+  <option value="MMG">MMG</option>
+  <option value="MSG">MSG</option>
+  
+  
+  
+  
+  
+ </select>
+	   </div>
+		 
+		 </div>
+		 
+<div class="col-xs-2">	 
+   <div class="form-group">
+            <label for="TCReturnDate">From Date</label>
+            <input id="TCReturnDate" type="date" name="TCReturnDate"   autofocus  value="{{user.TCReturnDate }}"  class="form-control"/>
+        </div>
+    </div>
+	<div class="col-xs-2">	 
+   <div class="form-group">
+            <label for="TCReturnDate">To Date</label>
+            <input id="TCReturnDate" type="date" name="TCReturnDate"   autofocus  value="{{user.TCReturnDate }}"  class="form-control"/>
+        </div>
+    </div>
+	
+	
+	
+	
+	<div class="col-xs-2">	 
+	<div class="form-group">
+	  <label for="TCReturnDate"> </label>
+          
+  <input id="TCReturnDate" type='submit' name='submit-btn' value='Submit' class="btn btn-default" />
+   </div>
+    </div>
+  </div>
+  
+  </form>
+ <br></br>
+	<div class="container">
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br></br>
+		
+	<div id="printableTable">	
+		<table id="t01"  >
+		{% set i=0 %}
+	<thead>	
+		
+		
+  <tr>
+ <th onclick="sortTable(0)">Sl. No</th>
+    <th onclick="sortTable(1)">VM Username</th>
+    <th onclick="sortTable(2)">VM IP</th> 
+	
+	<th onclick="sortTable(3)">Installation Type</th>
+
+    <th onclick="sortTable(4)">Thin CLient Sl No</th>
+ <th onclick="sortTable(5)">Operating System</th>
+	<th onclick="sortTable(6)">Assigned To</th>
+  </tr>
+</thead>
+   {% for tsk in tasks %}
+  
+  
+  {% set i=i+1 %}
+<tbody id="myTable"  >
+  
+  <tr> 
+ 
+  
+   
+  <td class="bg-success">{{i}}</td>
+     <td class="bg-success">{{tsk.vmname}}</td>
+    <td class="bg-success">{{tsk.VMIP}}</td>
+
+	<td class="bg-success">{{tsk.InstallationType}}</td>
+	
+    <td class="bg-success">{{tsk.ThinClientSlNo}}</td>
+	<td class="bg-success">{{tsk.OperatingSys}}</td>
+	<td class="bg-success">{{tsk.AssignedPersonName}}</td>
+	
+	<td>
+	
+	 <form method="post" action="/create/VDIviewonly" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='View' class="btn btn-default" />
+	 </form> 
+		  
+	</td>	
+	
+		  
+	
+	
+	
+	 <!-- <td>
+	 <form method="post" action="/create/VDIeditview" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='Edit' class="btn btn-default" />
+	 </form> 
+		 </td>  -->
+		 
+		  
+	
+	
+	
+	
+	
+  </tr>
+  </tbody>
+  {% endfor %}
+  
+  
+  
+ </table>
+    </div>  
+   
+   
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+ 
+ <br><br>
+      <!--  <button  type="button" class="printPageButton"  onClick="window.print();" >Print</button> 
+ -->
+     <button  type="button"   onClick="printDiv()" ><span class="glyphicon glyphicon-print"></span>Print</button> 
+
+</div>  
+
+{% endblock %}

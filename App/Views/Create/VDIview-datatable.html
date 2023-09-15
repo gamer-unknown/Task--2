@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+ 
+{% block title %}View VM details{% endblock %}
+
+
+{% block body %}
+
+
+
+
+
+    <h3><u>View VM details  <span class="badge">{{count}}</span></u></h3>
+	
+	
+	{% if current_user.admin!="U" %}
+	 
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  {%endif%}
+  <br></br>
+		
+	<div id="printableTable">	
+		<table id="t01"  >
+		{% set i=0 %}
+	<thead>	
+		
+		
+  <tr>
+  
+  <th>Sl. No</th>
+    <th >VM Username</th>
+    <th>VM IP</th> 
+	<th>Thin Client IP</th>
+	
+    <th>Operating System</th>
+	<th>Assigned To</th>
+		<th>Section</th>
+	<th>View</th>
+	<th>Edit</th>
+	
+  </tr>
+</thead>
+   {% for tsk in tasks %}
+   
+  {% set i=i+1 %}
+<tbody id="myTable"  >
+  
+  <tr> 
+   
+   
+    
+	<td class="bg-success">{{i}}</td>
+     <td class="bg-success">{{tsk.vmname}}</td>
+    <td class="bg-success">{{tsk.VMIP}}</td>
+{% if (current_user) %}
+	<td class="bg-success">{{tsk.ThinClientIP}}</td>
+	 {% endif %}	
+	 <td class="bg-success">{{tsk.OperatingSys}}</td>
+    <td class="bg-success">{{tsk.AssignedPersonName}}</td>
+	<td class="bg-success">{{tsk.details}}</td>
+	
+	<td>
+	
+	 <form method="post" action="/create/VDIviewonly" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='View' class="btn btn-default" />
+	 </form> 
+		  
+	</td>	
+	
+		  
+	
+	
+	
+	 <td>
+	 <form method="post" action="/create/VDIeditview" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='Edit' class="btn btn-default" />
+	 </form> 
+		 </td>   
+	
+	
+	
+	
+	
+  </tr>
+  </tbody>
+  {% endfor %}
+  
+  
+  
+ </table>
+    </div>  
+   
+   
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
+ <br><br>
+      <!--  <button  type="button" class="printPageButton"  onClick="window.print();" >Print</button> 
+ -->
+     <button  type="button"   onClick="printDiv()" ><span class="glyphicon glyphicon-print"></span>Print</button> 
+
+
+
+{% endblock %}

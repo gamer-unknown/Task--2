@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+ 
+{% block title %} Add Hardware replacement details{% endblock %}
+
+
+{% block body %}
+<h3><span style="color: #00008B;"><u>Add Hardware replacement details</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<br></br>
+<form method="post" action="/create/addaccessories" id="formEdit">
+	 
+   
+   
+  
+<input type='hidden' name='username' value='{{user.name}}'/>
+
+
+		 
+		 
+		      
+ <!-- <u>Available Mouse Count </u> <span class="badge">{{totalstock.mouseno}}   </span>&nbsp;&nbsp;
+	<u>Available Keyboards Count </u> <span class="badge">{{totalstock.keyboardno}}   </span>&nbsp;&nbsp;
+	<u>Available Adapter Count </u> <span class="badge">{{totalstock.adapterno}}   </span></u>&nbsp;&nbsp;
+	 --> <input  type ="hidden" id="mousecount"    autofocus  value="{{totalstock.mouseno }}"  class="form-control"/>
+	 	 <input  type ="hidden" id="kbcount"    autofocus  value="{{totalstock.keyboardno }}"  class="form-control"/>
+	 <input  type ="hidden" id="adaptercount"    autofocus  value="{{totalstock.adapterno }}"  class="form-control"/>
+			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>User Details</i></legend>
+		  
+			 
+		 		 <div class="form-group row">
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="ICNo">Assigned User</label>
+            <input  type ="text" id="ICNo" name="ICNo"   autofocus  value="{{user.username }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="vmname">VM username</label>
+            <input  type ="text" id="vmname" name="vmname"   autofocus  value="{{user.vmname }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		
+		  <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="sec">Section</label>
+            <input  type ="text" id="sec" name="sec"   autofocus  value="{{user.sec }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="divn">Division</label>
+            <input  type ="text" id="divn" name="divn"   autofocus  value="{{user.divn }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		 <div class="col-xs-2">	 
+		 
+		 <div class="form-group">
+             <label for="grp">Group</label>
+            <input  type ="text" id="grp" name="grp"   autofocus  value="{{user.grp }}"  class="form-control"/>
+        </div>
+		 
+		 </div>
+		  <div class="col-xs-2">	 
+		 <div class="form-group">
+            <label for="stockdate">Installed Date</label>
+            <input type="date" id="stockdate" name="stockdate"   autofocus  value="{{user.stockdate }}" required class="form-control"/>
+        </div>
+		 
+		  
+		 </div>
+		 </div>
+		 
+		 
+		</fieldset> 
+		 
+		 	 			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Hardware Replacement details</i></legend>
+		 
+    <div class="form-group row">
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+   
+<label>
+  <input type="checkbox" name="mouseout"   value="1" checked id="mouseout"> Mouse Replaced
+  </label><br></br>
+  <label for="MouseSlNo" style="display: inline-block;">Mouse Sl. No:</label>
+ <input type="text" id="MouseSlNo" name="MouseSlNo" value="{{user.MouseSlNo}}" disabled style="display: inline-block;">
+<input type="hidden" id="mousein" name="mousein" value="0">
+<input type="hidden" id="mouseno" name="mouseno" value="{{totalstock.mouseno }}">
+	  </div>
+		 
+		 </div>
+		 
+		 
+	  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            
+	
+   
+<label>
+  <input type="checkbox" name="keyboadout" value="1"  checked id="keyboadout"> Keyboard Replaced
+</label><br></br>
+
+<label for="KeyboardSlNo" style="display: inline-block;">Keyboard Sl. No:</label>
+<input type="text" id="KeyboardSlNo" name="KeyboardSlNo" value="{{user.KeyboardSlNo}}" disabled style="display: inline-block;">
+<input type="hidden" id="keyboadin" name="keyboadin" value="0"    >
+<input type="hidden" id="keyboardno" name="keyboardno" value="{{totalstock.keyboardno}}"  >
+
+ 
+	  </div>
+		 </div>  
+		
+		
+		  <div class="col-xs-4">	 
+		 
+		 <div class="form-group">
+            
+	
+<label>
+  <input type="checkbox" name="adapterout"  value="1" checked id="adapterout"> Adapter Replaced
+  <input type="hidden" id="adapterin" name="adapterin" value="0"    >
+<input type="hidden" id="adapterno" name="adapterno" value="{{totalstock.adapterno}}"   >
+
+</label>
+  
+
+
+
+	  </div>
+		 
+		 
+		</div> 
+		
+	  	
+		</div> 
+		 
+			</fieldset>  
+	 
+		
+		
+		<div class="form-group">
+            <label for="Remarks">Remarks</label>
+       <!--      
+			 <input id="desc" name="remarks1"      autofocus placeholder="{{ editt.remarks}}" required class="form-control"/> -->
+			  <textarea rows="4" cols="50" id="Remarks" name="remarks"  placeholder="{{ user.remarks}}" required autofocus     class="form-control">
+</textarea> 
+		</div>	
+		
+		
+
+
+<script>
+  var mouseout = document.getElementById("mouseout");
+  var MouseSlNo = document.getElementById("MouseSlNo");
+  var mouseno = document.getElementById("mouseno");
+  var mousecount = document.getElementById("mousecount");
+  
+  var keyboadout = document.getElementById("keyboadout");
+  var KeyboardSlNo = document.getElementById("KeyboardSlNo");
+   var keyboardno = document.getElementById("keyboardno");
+  var kbcount = document.getElementById("kbcount");
+  
+   var adapterout = document.getElementById("adapterout");
+    var adapterno = document.getElementById("adapterno");
+  var adaptercount = document.getElementById("adaptercount");
+  
+  mouseout.addEventListener("change", function() {
+    MouseSlNo.disabled = !this.checked;
+	
+	if (mouseout.checked) {
+      mouseout.value = 1;
+	  mouseno.value=mousecount.value-1;
+	   
+	  
+    } else {
+      mouseout.value = 0;
+	   mouseno.value=mousecount.value;
+	   
+	  
+    }
+  });
+  
+  keyboadout.addEventListener("change", function() {
+    KeyboardSlNo.disabled = !this.checked;
+	if (keyboadout.checked) {
+      keyboadout.value = 1;
+	  keyboardno.value=kbcount.value-1;
+    } 
+	else {
+      keyboadout.value = 0;
+	  keyboardno.value=kbcount.value;
+    }
+  });
+  
+  
+     adapterout.addEventListener("change", function() {
+     
+	if (adapterout.checked) {
+      adapterout.value = 1;
+	  adapterno.value=adaptercount.value-1;
+    } else {
+      adapterout.value = 0;
+	  adapterno.value=adaptercount.value;
+    }
+  });
+  
+  
+  
+</script>
+     <button type="submit" class="btn btn-default">Submit the details</button>
+   </form>
+   
+ 
+
+
+{% endblock %}

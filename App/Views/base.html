@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="/js/sorttable.js"></script>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+  -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.1.1.min.js"
+      integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      crossorigin="anonymous"
+    ></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+
+    <script>
+      function myFunction() {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+      }
+
+      function printDiv() {
+        window.frames["print_frame"].document.body.innerHTML =
+          document.getElementById("printableTable").innerHTML;
+        window.frames["print_frame"].window.focus();
+        window.frames["print_frame"].window.print();
+      }
+
+      $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+          });
+        });
+      });
+
+      function sortTable(n) {
+        var table,
+          rows,
+          switching,
+          i,
+          x,
+          y,
+          shouldSwitch,
+          dir,
+          switchcount = 0;
+        table = document.getElementById("t01");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        /* Make a loop that will continue until
+  no switching has been done: */
+        while (switching) {
+          // Start by saying: no switching is done:
+          switching = false;
+          rows = table.getElementsByTagName("TR");
+          /* Loop through all table rows (except the
+    first, which contains table headers): */
+          for (i = 1; i < rows.length - 1; i++) {
+            // Start by saying there should be no switching:
+            shouldSwitch = false;
+            /* Get the two elements you want to compare,
+      one from current row and one from the next: */
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /* Check if the two rows should switch place,
+      based on the direction, asc or desc: */
+            if (dir == "asc") {
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                // If so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            /* If a switch has been marked, make the switch
+      and mark that a switch has been done: */
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            // Each time a switch is done, increase this count by 1:
+            switchcount++;
+          } else {
+            /* If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again. */
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+    </script>
+<style>
+  .dropdown-menu {
+    z-index: 1001;
+    padding-bottom: 10px;
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .container {
+    position: relative;
+    z-index: 0;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 20px 0; /* Increased padding to top and bottom */
+  }
+
+  /* Increase font size for navigation items */
+</style>
+
+
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+    {% for message in flash_messages %}
+    <div>
+      <b>{{ message }}</b>
+    </div>
+    {% endfor %}
+
+    <div class="header">
+      <h2 style="color: #fffff">
+        <tt><b>Virtual Desktop Infrastructure(VDI) Portal</b></tt>
+      </h2>
+      {% if current_user %}
+      <h4 style="color: #fffff"><tt>Hello {{ current_user.name }}.</tt></h4>
+      {% endif %}
+    </div>
+
+    <ul style="position: -webkit-sticky; position: sticky; top: 0">
+      {% if current_user.admin=="A" or current_user.admin=="AS" or
+      current_user.admin=="O"%}
+      <!-- <nav class="navbar navbar-default"> -->
+      <li>
+        <a href="/" data-toggle="tooltip" data-placement="top" title="Home"
+          ><span class="glyphicon glyphicon-home"></span>
+        </a>
+      </li>
+
+      <input type="hidden" name="flag" value="viewall" />
+      <!-- <li><a href="/create/statusviewall" data-toggle="tooltip" data-placement="top" title="View"><span class="glyphicon glyphicon-tasks"></span> Complaints</a></li>  -->
+
+      <li>
+        <a href="/create/VDIcreate"
+          ><span class="glyphicon glyphicon-pencil"> </span> Register a VM
+        </a>
+      </li>
+
+      <li>
+        <a href="/create/statusviewTC"
+          ><span class="glyphicon glyphicon-th-list"> </span> Deployed TC
+          Register
+        </a>
+      </li>
+
+      <li>
+        <a
+          href="/create/replacement"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="View"
+          ><span class="glyphicon glyphicon-tasks"></span> Hardware Replacement
+          Details</a
+        >
+      </li>
+      <li>
+        <a
+          href="/create/replacementview"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="View"
+          ><span class="glyphicon glyphicon-tasks"></span> Hardware Stock
+          Register
+        </a>
+      </li>
+      <li>
+        <a
+          href="/create/statusReports"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="View"
+          ><span class="glyphicon glyphicon-tasks"></span> Reports</a
+        >
+      </li>
+      <li class="dropdown">
+        <a
+          href="#"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ><span class="glyphicon glyphicon-tasks">User-Forms </span></a
+        >
+        <ul class="dropdown-menu">
+          <li><a href="/create/fillForm">New User</a></li>
+          <li><a href="/create/getForm">Existing User</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a
+          href="#"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          role="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          ><span class="glyphicon glyphicon-tasks">Log-Parser</span></a
+        >
+        <ul class="dropdown-menu">
+          <li><a href="/create/logInput">Add Log File</a></li>
+          <li><a href="/create/dateInput">Data Analysis</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="/create/help"
+          ><span class="glyphicon glyphicon-th-list"> </span> Help
+        </a>
+      </li>
+
+      <!--  
+  <li ><a href="/create/search" data-toggle="tooltip" data-placement="top" title="Search Tasks"><span class="glyphicon glyphicon-search"></span> Search </a></li>
+ -->
+      <li style="float: right">
+        <a
+          href="/logout"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Logout"
+          ><span class="glyphicon glyphicon-log-out"></span> Logout</a
+        >
+      </li>
+      <li style="float: right">
+        <a
+          href="/password/changePassword"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Logout"
+          ><span class="glyphicon glyphicon-cog"></span> Change Password</a
+        >
+      </li>
+
+      {% elseif current_user.admin=="U" %}
+
+      <!--  <li><a href="/signup/new">Sign Up</a> </li>
+ -->
+      <li>
+        <a href="/" data-toggle="tooltip" data-placement="top" title="Home"
+          ><span class="glyphicon glyphicon-home"></span>
+        </a>
+      </li>
+
+      <li>
+        <a href="/create/vmassigned"
+          ><span class="glyphicon glyphicon-dashboard"> </span> Virtual Machine
+          details
+        </a>
+      </li>
+
+      <li>
+        <a href="/create/newcomplaint"
+          ><span class="glyphicon glyphicon-pencil"> </span> Register a
+          Complaint
+        </a>
+      </li>
+
+      <!-- <li><a href="/create/statusview"><span class="glyphicon glyphicon-eye-open">    </span>    View Complaint Status  </a></li>
+	 -->
+      <li style="float: right">
+        <a
+          href="/logout"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Logout"
+          ><span class="glyphicon glyphicon-log-out"></span> Logout</a
+        >
+      </li>
+
+      <li style="float: right">
+        <a
+          href="/password/changePassword"
+          data-toggle="tooltip"
+          data-placement="top"
+          title="Logout"
+          ><span class="glyphicon glyphicon-cog"></span> Change Password</a
+        >
+      </li>
+
+      {% else %}
+      <li>
+        <a href="/" data-toggle="tooltip" data-placement="top" title="Home"
+          ><span class="glyphicon glyphicon-home"></span>
+        </a>
+      </li>
+
+      <li style="float: right">
+        <a href="/login"
+          ><span class="glyphicon glyphicon-log-in"> </span> Login
+        </a>
+      </li>
+
+      <!-- 
+	<li style="float:right"><a href="/signup/new"><span class="glyphicon glyphicon-log-in">    </span>   Register      </a></li>
+    
+	 -->{% endif %}
+    </ul>
+    <!-- </nav> -->
+
+    <div class="container">{% block body %} {% endblock %}</div>
+
+    {% block footer %} {% endblock %}
+  </body>
+</html>

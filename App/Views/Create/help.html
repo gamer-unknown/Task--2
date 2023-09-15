@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+ 
+{% block title %} Help{% endblock %}
+
+
+{% block body %}
+
+<br></br>
+<form method="post" action="/create/addhelp" id="formEdit">
+	 <input type='submit' name='submit-btn' value='Add Help topic' class="btn btn-info" />
+	 </form>
+
+
+    <h3><u>Help topics  <span class="badge">{{count}}</span></u></h3>
+	
+	
+	
+	 
+		<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br></br>
+		
+	<div id="printableTable">	
+		<table id="t01"  >
+		{% set i=0 %}
+	<thead>	
+		
+		
+  <tr>
+  
+  <th onclick="sortTable(0)">Sl. No</th>
+    <th onclick="sortTable(1)">Category</th>
+    <th onclick="sortTable(2)">Topic title</th> 
+	
+	
+	
+  </tr>
+</thead>
+   {% for tsk in tasks %}
+  
+  
+  {% set i=i+1 %}
+<tbody id="myTable"  >
+  
+  <tr> 
+ 
+  
+  
+  
+   
+    
+	<td class="bg-success">{{i}}</td>
+     <td class="bg-success">{{tsk.category}}</td>
+    <td class="bg-success">{{tsk.title}}</td>
+
+	
+	<td>
+	
+	 <form method="post" action="/create/helpviewonly" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='View' class="btn btn-primary" />
+	 </form> 
+		  
+	</td>	
+	
+		  
+	
+	
+	
+	 <td>
+	 <form method="post" action="/create/helpedit" id="formEdit">
+	 <input type='hidden' name='tempId' value='{{tsk.SlNo}}'/>
+	 <input type='submit' name='submit-btn' value='Edit' class="btn btn-info" />
+	 </form> 
+		 </td>   
+	
+	
+	
+	
+	
+  </tr>
+  </tbody>
+  {% endfor %}
+  
+  
+  
+ </table>
+    </div>  
+   
+   
+<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>
+
+ <br><br>
+      <!--  <button  type="button" class="printPageButton"  onClick="window.print();" >Print</button> 
+ -->
+     <button  type="button"   onClick="printDiv()" ><span class="glyphicon glyphicon-print"></span>Print</button> 
+
+
+
+{% endblock %}

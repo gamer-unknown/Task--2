@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+ 
+{% block title %} View Help Topic{% endblock %}
+
+
+{% block body %}
+<h3><span style="color: #00008B;"><u>View Help Topic</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<br></br>
+<form method="post" action="/create/help" id="formEdit">
+	 
+   
+        
+<input type='hidden' name='username' value='{{user.name}}'/>
+
+
+		 
+		 
+		      
+ 
+	 
+	 			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Help Details</i></legend>
+		 <div class="form-group">
+            <label for="category"> Help topic category</label>
+  <input id="category" name="category"   autofocus readonly value="{{viewonly.category }}" required class="form-control"/>
+    		</div>
+			 
+		 <div class="form-group">
+            <label for="title">Topic Title</label>
+            <input id="title" name="title"   autofocus readonly value="{{viewonly.title }}" required class="form-control"/>
+        </div>
+	
+		<div class="form-group">
+            <label for="desc"> Topic description</label>
+
+		<textarea rows="4" cols="50" id="desc" name="description" readonly  autofocus placeholder="{{ viewonly.description }}" required class="form-control">
+</textarea>
+		</div>
+		
+		
+		 
+		 
+		</fieldset> 
+		 
+		 
+		 
+   
+   
+     <button type="submit" class="btn btn-default">Back</button>
+   </form>
+   
+ 
+
+
+{% endblock %}

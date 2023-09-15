@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+ 
+{% block title %} Edit Help Topic{% endblock %}
+
+
+{% block body %}
+<h3><span style="color: #00008B;"><u>Edit Help Topic</u></h3>
+
+    {% if user.errors is not empty %}
+        <p>Errors:</p>
+        <ul>
+            {% for error in user.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+<br></br>
+<form method="post" action="/create/edithelp" id="formEdit">
+	 
+   
+        
+<input type='hidden' name='username' value='{{user.name}}'/>
+
+<input type='hidden' name='tempId' value='{{viewonly.SlNo}}'/>
+		 
+		 
+		      
+ 
+	 
+	 			
+<fieldset>
+    <legend><span style="color: #00008B;"><i>Help Details</i></legend>
+		 <div class="form-group">
+            <label for="category"> Help topic category</label>
+  <input id="category" name="category"   autofocus  value="{{viewonly.category }}" required class="form-control"/>
+    		</div>
+			 
+		 <div class="form-group">
+            <label for="title">Topic Title</label>
+            <input id="title" name="title"   autofocus  value="{{viewonly.title }}" required class="form-control"/>
+        </div>
+	
+		<div class="form-group">
+            <label for="desc"> Topic description</label>
+
+		<textarea rows="4" cols="50" id="desc" name="description"   autofocus placeholder="{{ viewonly.description }}" value="{{ viewonly.description }}" required class="form-control">
+</textarea>
+		</div>
+		
+		
+		 
+		 
+		</fieldset> 
+		 
+		 
+		 
+   
+   
+     <button type="submit" class="btn btn-default">Submit</button>
+   </form>
+   
+ 
+
+
+{% endblock %}
